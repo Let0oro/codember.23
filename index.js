@@ -1,3 +1,4 @@
+// C_01
 function challenge_01() {
   // Results here...
 
@@ -59,6 +60,76 @@ function challenge_01() {
   console.log('FINAL_SOLUTION ->', FINAL_TEST.getNumeredList());
 }
 
+// C_02
+function challenge_02() {
+  // Results here...
+
+  const TEST1 = '##*&';
+  const TEST2 = '&##&*&@&';
+  const FINAL_TEST =
+    '&###@&*&###@@##@##&######@@#####@#@#@#@##@@@@@@@@@@@@@@@*&&@@@@@@@@@####@@@@@@@@@#########&#&##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@##@@&';
+
+  // Type here..
+
+  String.prototype.compilerSymbols = function (initialNums = [0], init = 0) {
+    const poppush = () => {
+      initialNums.pop();
+      initialNums.push(init);
+    };
+
+    const objOperations = {
+      '#': function () {
+        init++;
+        poppush();
+      },
+      '*': function () {
+        init *= init;
+        poppush();
+      },
+      '&': function (i, a) {
+        if (i != a.length - 1) initialNums.push(init);
+      },
+      '@': function () {
+        init--;
+        poppush();
+      },
+    };
+
+    const arrayOperations = [...this];
+
+    arrayOperations.forEach((v, i, a) => {
+      objOperations[v](i, a);
+    });
+    const solution = initialNums.join('');
+
+    return solution;
+  };
+
+  // Test here...
+
+  console.log(
+    'TEST1 ->',
+    TEST1.compilerSymbols() === '4' ? 'Great!' : 'Try again :(',
+    ';',
+    TEST1.compilerSymbols(),
+    '=?',
+    '4'
+  );
+  console.log(
+    'TEST2 ->',
+    TEST2.compilerSymbols() === '0243' ? 'Great!' : 'Try again :(',
+    ';',
+    TEST2.compilerSymbols(),
+    '=?',
+    '0243'
+  );
+  console.log('FINAL_SOLUTION ->', FINAL_TEST.compilerSymbols());
+}
+
 // Solutions:
 
+console.log('\n >>> Sol_01 \n\n')
 challenge_01();
+
+console.log('\n >>> Sol_02 \n\n')
+challenge_02();
